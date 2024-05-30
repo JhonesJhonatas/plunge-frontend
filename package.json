@@ -2,6 +2,11 @@
   "name": "plunge-frontend",
   "version": "0.1.0",
   "private": true,
+  "author":{
+    "name": "Jhones Jhoantas",
+    "email": "jhones.jhonatas@outlook.com.br",
+    "url": "https://github.com/JhonesJhonatas"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
