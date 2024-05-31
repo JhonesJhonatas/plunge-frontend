@@ -1,5 +1,3 @@
 export default function Home() {
-  return (
-    <span>Plunge WebSite</span>
-  );
+  return <span>Plunge WebSite</span>
 }
