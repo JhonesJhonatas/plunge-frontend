@@ -3,10 +3,11 @@ import Image from 'next/image'
 import plungeHorizontalLogo from '@/app/assets/plunge-horizontal-logo.svg'
 import applicationMockup from '@/app/assets/application-mockup.svg'
 
-import { Button, Input } from '@/app/components'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import { BsLinkedin } from 'react-icons/bs'
+
+import { Button, Input } from '@components'
 
 export default function Login() {
   return (
