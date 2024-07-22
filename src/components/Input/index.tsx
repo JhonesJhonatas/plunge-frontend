@@ -28,11 +28,13 @@ type InputStyleProps = VariantProps<typeof input>
 
 interface InputProps extends InputStyleProps, InputBoxStyleProps {
   placeholder?: string
+  label?: string
 }
 
-export const Input: React.FC<InputProps> = ({ size, placeholder }) => {
+export const Input: React.FC<InputProps> = ({ size, placeholder, label }) => {
   return (
     <div className={inputBox({ size })}>
+      <div>{label ? <span>{label}</span> : null}</div>
       <input type="text" placeholder={placeholder} className={input()} />
     </div>
   )

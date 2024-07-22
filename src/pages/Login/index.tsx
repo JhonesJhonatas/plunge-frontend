@@ -12,8 +12,8 @@ export const Login: React.FC = () => {
         <div className="w-full h-full flex flex-col gap-8 justify-center items-center p-2">
           <img src={logoHorizontal} alt="Logo Horizontal" className="w-4/12" />
           <form action="" className="flex flex-col gap-2 w-full items-center">
-            <Input size="md" placeholder="seuemail@email.com" />
-            <Input size="md" placeholder="******" />
+            <Input size="md" label="Email" placeholder="seuemail@email.com" />
+            <Input size="md" label="Senha" placeholder="******" />
             <button>Entrar</button>
           </form>
           <div>
