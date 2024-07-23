@@ -1,22 +1,56 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import applicationMockup from '@assets/aplication-mockup.png'
 import logoHorizontal from '@assets/logo-horizontal.png'
 
-import { Input } from '@components'
+import { Button, Form } from '@components'
+import { z } from 'zod'
+
+const formSchema = z.object({
+  email: z.string().email({ message: 'Email inválido' }),
+  password: z
+    .string()
+    .min(6, { message: 'Senha deve ter no mínimo 6 caracteres' }),
+})
+
+type FormSchema = z.infer<typeof formSchema>
 
 export const Login: React.FC = () => {
+  const onSubmit = useCallback((data: FormSchema) => {
+    console.log('---------- DEBUG ----------')
+    console.log(data)
+    console.log('---------- DEBUG ----------')
+  }, [])
+
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center">
       <div className="w-8/12 h-4/6 bg-slate-900 rounded flex shadow-2xl">
         <div className="w-full h-full flex flex-col gap-8 justify-center items-center p-2">
           <img src={logoHorizontal} alt="Logo Horizontal" className="w-4/12" />
-          <form action="" className="flex flex-col gap-2 w-full items-center">
-            <Input size="md" label="Email" placeholder="seuemail@email.com" />
-            <Input size="md" label="Senha" placeholder="******" />
-            <button>Entrar</button>
-          </form>
-          <div>
+          <Form
+            formSchema={formSchema}
+            onSubmitForm={onSubmit}
+            className="flex flex-col gap-6 w-full items-center"
+          >
+            <Form.Input
+              name="email"
+              type="text"
+              label="Email"
+              placeholder="seuemail@email.com"
+              boxSize="lg"
+            />
+            <Form.Input
+              name="password"
+              type="password"
+              label="Senha"
+              placeholder="******"
+              boxSize="lg"
+            />
+            <Button type="submit" width="lg">
+              Entrar
+            </Button>
+          </Form>
+          <div className="flex items-center gap-4">
             <span>Esqueceu a senha?</span>
             <span>Criar conta</span>
           </div>

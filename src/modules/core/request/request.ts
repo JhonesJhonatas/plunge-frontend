@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios'
-import { api } from './api'
+
 import {
+  api,
   clearCache,
   cacheIsExpired,
   hasInCache,
   setInCache,
   getForCache,
-} from './cache'
+} from '@core'
 
 type RequestProps = {
   url: string
