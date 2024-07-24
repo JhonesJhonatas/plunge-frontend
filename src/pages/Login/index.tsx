@@ -3,7 +3,7 @@ import React, { useCallback } from 'react'
 import applicationMockup from '@assets/aplication-mockup.png'
 import logoHorizontal from '@assets/logo-horizontal.png'
 
-import { Button, Form } from '@components'
+import { Button, Form, Link } from '@components'
 import { z } from 'zod'
 import { useAuth } from '@/modules/user/hooks/use-auth'
 
@@ -30,7 +30,7 @@ export const Login: React.FC = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center">
-      <div className="w-8/12 h-4/6 bg-slate-900 rounded flex shadow-2xl">
+      <div className="w-8/12 h-5/6 bg-slate-900 rounded flex shadow-2xl">
         <div className="w-full h-full flex flex-col gap-8 justify-center items-center p-2">
           <img src={logoHorizontal} alt="Logo Horizontal" className="w-4/12" />
           <Form
@@ -57,8 +57,8 @@ export const Login: React.FC = () => {
             </Button>
           </Form>
           <div className="flex items-center gap-4">
-            <span>Esqueceu a senha?</span>
-            <span>Criar conta</span>
+            <Link label="Esqueceu a senha?" href="" disabled />
+            <Link label="Criar conta" href="/create-user" />
           </div>
         </div>
         <div className="w-full overflow-hidden flex items-center">
