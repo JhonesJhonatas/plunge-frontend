@@ -10,9 +10,13 @@ const button = tv({
       lg: 'w-8/12',
       block: 'w-full',
     },
+    typeColor: {
+      primary: 'bg-blue-600 hover:bg-blue-500 transition-all',
+    },
   },
   defaultVariants: {
     width: 'block',
+    typeColor: 'primary',
   },
 })
 
