@@ -32,6 +32,7 @@
       "@core": ["./modules/core"],
       "@post": ["./modules/post"],
       "@user": ["./modules/user"],
+      "@user/*": ["./modules/user/*"],
     }
   },
   "include": ["src"]

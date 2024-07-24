@@ -5,6 +5,7 @@ import logoHorizontal from '@assets/logo-horizontal.png'
 
 import { Button, Form } from '@components'
 import { z } from 'zod'
+import { useAuth } from '@/modules/user/hooks/use-auth'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Email inválido' }),
@@ -16,11 +17,16 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>
 
 export const Login: React.FC = () => {
-  const onSubmit = useCallback((data: FormSchema) => {
-    console.log('---------- DEBUG ----------')
-    console.log(data)
-    console.log('---------- DEBUG ----------')
-  }, [])
+  const {
+    handlers: { handleSignIn },
+  } = useAuth()
+
+  const onSubmit = useCallback(
+    ({ email, password }: FormSchema) => {
+      handleSignIn({ email, password })
+    },
+    [handleSignIn],
+  )
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center">
