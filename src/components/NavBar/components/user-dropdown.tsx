@@ -18,13 +18,15 @@ export const UserDropDown: React.FC = () => {
       </DropDown.Trigger>
 
       <DropDown.Content>
-        <div className="flex gap-2 p-2 rounded border-2 items-center border-slate-500">
-          <Avatar size="sm" />
-          <div className="flex flex-col ">
-            <span className="font-bold text-sm">{user.name}</span>
-            <span className="text-xs">{user.email}</span>
+        {user ? (
+          <div className="flex gap-2 p-2 rounded border-2 items-center border-slate-500">
+            <Avatar size="sm" />
+            <div className="flex flex-col ">
+              <span className="font-bold text-sm">{user.name}</span>
+              <span className="text-xs">{user.email}</span>
+            </div>
           </div>
-        </div>
+        ) : null}
         <DropDown.Item label="Sair" icon={GoSignOut} onClick={handleSignOut} />
       </DropDown.Content>
     </DropDown>
