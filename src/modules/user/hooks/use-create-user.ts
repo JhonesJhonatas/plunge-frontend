@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react'
 import { createUser, CreateUserProps } from '@user'
 
 import { useToast } from '@components'
+import { useNavigate } from 'react-router-dom'
 
 interface UseCreateUserResponse {
   loading: boolean
@@ -12,6 +13,7 @@ interface UseCreateUserResponse {
 }
 
 export const useCreateUser = (): UseCreateUserResponse => {
+  const navigate = useNavigate()
   const { addToast } = useToast()
 
   const [loading, setLoading] = useState(false)
@@ -21,7 +23,9 @@ export const useCreateUser = (): UseCreateUserResponse => {
       setLoading(true)
 
       try {
-        await createUser({ name, email, password })
+        const { data } = await createUser({ name, email, password })
+
+        navigate(`/${data.email}`)
 
         addToast({
           title: 'Usuário criado com sucesso',
@@ -36,7 +40,7 @@ export const useCreateUser = (): UseCreateUserResponse => {
 
       setLoading(false)
     },
-    [addToast],
+    [addToast, navigate],
   )
 
   return { loading, handlers: { handleCreateUser } }

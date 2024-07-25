@@ -7,6 +7,7 @@ import logoHorizontal from '@assets/logo-horizontal.png'
 
 import { Button, Form, Link } from '@components'
 import { useAuth } from '@user'
+import { useParams } from 'react-router-dom'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Email inválido' }),
@@ -21,6 +22,7 @@ export const Login: React.FC = () => {
   const {
     handlers: { handleSignIn },
   } = useAuth()
+  const { email } = useParams()
 
   const onSubmit = useCallback(
     ({ email, password }: FormSchema) => {
@@ -40,6 +42,7 @@ export const Login: React.FC = () => {
             className="flex flex-col gap-6 w-full items-center"
           >
             <Form.Input
+              defaultValue={email}
               name="email"
               type="text"
               label="Email"

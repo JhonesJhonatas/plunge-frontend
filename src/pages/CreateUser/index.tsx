@@ -6,13 +6,23 @@ import { GoArrowLeft } from 'react-icons/go'
 import { Button, Form, Link } from '@components'
 import { useCreateUser } from '@/modules/user'
 
-const formSchema = z.object({
-  name: z.string().min(3, { message: 'Nome deve ter no mínimo 3 caracteres' }),
-  email: z.string().email({ message: 'Email inválido' }),
-  password: z
-    .string()
-    .min(6, { message: 'Senha deve ter no mínimo 6 caracteres' }),
-})
+const formSchema = z
+  .object({
+    name: z
+      .string()
+      .min(3, { message: 'Nome deve ter no mínimo 3 caracteres' }),
+    email: z.string().email({ message: 'Email inválido' }),
+    password: z
+      .string()
+      .min(6, { message: 'Senha deve ter no mínimo 6 caracteres' }),
+    confirmPassword: z
+      .string()
+      .min(6, { message: 'Senha deve ter no mínimo 6 caracteres' }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Senhas não conferem',
+    path: ['confirmPassword'],
+  })
 
 type FormSchema = z.infer<typeof formSchema>
 
@@ -60,6 +70,12 @@ export const CreateUser: React.FC = () => {
           <Form.Input
             label="Senha"
             name="password"
+            placeHolder="******"
+            type="password"
+          />
+          <Form.Input
+            label="Confirme sua senha"
+            name="confirmPassword"
             placeHolder="******"
             type="password"
           />

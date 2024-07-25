@@ -1,4 +1,4 @@
-import { SignInUser } from '@user'
+import { User } from '@user'
 
 export interface CreateUserProps {
   name: string
@@ -6,7 +6,4 @@ export interface CreateUserProps {
   password: string
 }
 
-export interface CreateUserResponse {
-  user: SignInUser
-  accessToken: string
-}
+export interface CreateUserResponse extends User {}

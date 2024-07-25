@@ -7,11 +7,11 @@ import { CreateUser, Feed, Login } from '@pages'
 export const Router: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/:email?" element={<Login />} />
 
       <Route path="/create-user" element={<CreateUser />} />
 
-      <Route path="/" element={<Feed />} />
+      <Route path="/feed" element={<Feed />} />
     </Routes>
   )
 }
