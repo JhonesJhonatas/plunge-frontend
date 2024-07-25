@@ -5,6 +5,7 @@ const button = tv({
   base: 'p-2 rounded bg-blue-600',
   variants: {
     width: {
+      xs: 'w-2/12',
       sm: 'w-4/12',
       md: 'w-6/12',
       lg: 'w-8/12',

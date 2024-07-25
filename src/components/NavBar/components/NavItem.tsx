@@ -12,7 +12,7 @@ const navItem = tv({
       false: 'cursor-pointer hover:text-blue-300',
     },
     disabled: {
-      true: 'text-zinc-600 cursor-not-allowed hover:text-zinc-600',
+      true: 'text-zinc-500 cursor-not-allowed hover:text-zinc-500',
     },
   },
 })

@@ -9,8 +9,8 @@ import { GoCommentDiscussion, GoVersions } from 'react-icons/go'
 
 export const NavBar: React.FC = () => {
   return (
-    <div className="w-full bg-slate-900 p-4 flex justify-center">
-      <div className="w-[1400px] flex justify-between items-center">
+    <div className="w-full bg-gradient-to-br from-slate-700 to-slate-800 p-4 flex justify-center">
+      <div className="w-[1300px] flex justify-between items-center">
         <div>
           <img src={plungeLogo} alt="Plunge Logo" className="w-8 h-8" />
         </div>

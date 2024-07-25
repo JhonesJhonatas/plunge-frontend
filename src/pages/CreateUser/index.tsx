@@ -41,7 +41,7 @@ export const CreateUser: React.FC = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center">
-      <div className="w-3/12 bg-slate-900 rounded shadow-2xl">
+      <div className="w-3/12 bg-gradient-to-br from-slate-800 to-slate-900 rounded shadow-2xl">
         <div className="flex items-center justify-between py-4 px-6 border-b-2 border-zinc-800">
           <div>
             <span className="font-bold text-lg text-zinc-400">

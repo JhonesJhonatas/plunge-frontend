@@ -33,7 +33,7 @@ export const Login: React.FC = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center">
-      <div className="w-8/12 h-5/6 bg-slate-900 rounded flex shadow-2xl">
+      <div className="w-8/12 h-5/6 bg-gradient-to-br from-slate-800 to-slate-900 rounded flex shadow-2xl">
         <div className="w-full h-full flex flex-col gap-8 justify-center items-center p-2">
           <img src={logoHorizontal} alt="Logo Horizontal" className="w-4/12" />
           <Form

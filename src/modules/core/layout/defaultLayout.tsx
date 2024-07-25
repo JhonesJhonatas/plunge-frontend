@@ -6,9 +6,11 @@ import { NavBar } from '@components'
 
 export const DefaultLayout: React.FC = () => {
   return (
-    <div className="w-screen h-screen flex flex-col gap-4">
+    <div className="w-screen h-screen flex flex-col gap-4 items-center">
       <NavBar />
-      <Outlet />
+      <div className="w-[1300px]">
+        <Outlet />
+      </div>
     </div>
   )
 }
