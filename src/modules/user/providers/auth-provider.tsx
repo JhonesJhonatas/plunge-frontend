@@ -105,7 +105,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       user: undefined,
       tokenIsValid: false,
     })
-  }, [handleSetProperties])
+
+    navigate('/')
+  }, [handleSetProperties, navigate])
 
   useEffect(() => {
     const currentToken = localStorage.getItem('@Plunge:token')

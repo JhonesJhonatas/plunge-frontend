@@ -2,9 +2,10 @@ import React from 'react'
 
 import plungeLogo from '@assets/plunge-logo.svg'
 
-import { Avatar } from '@components'
-
 import { NavItem } from '@/components/NavBar/components/NavItem'
+import { UserDropDown } from '@/components/NavBar/components/user-dropdown'
+
+import { GoCommentDiscussion, GoVersions } from 'react-icons/go'
 
 export const NavBar: React.FC = () => {
   return (
@@ -14,12 +15,16 @@ export const NavBar: React.FC = () => {
           <img src={plungeLogo} alt="Plunge Logo" className="w-8 h-8" />
         </div>
         <div className="flex items-center gap-6">
-          <NavItem />
-          <NavItem />
-          <NavItem />
+          <NavItem icon={GoVersions} label="Feed" path="/feed" />
+          <NavItem
+            icon={GoCommentDiscussion}
+            label="Mensagens"
+            path="/messaging"
+            disabled
+          />
         </div>
         <div>
-          <Avatar size="sm" />
+          <UserDropDown />
         </div>
       </div>
     </div>
