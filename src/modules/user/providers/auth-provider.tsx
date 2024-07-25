@@ -98,8 +98,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   )
 
   const handleSignOut = useCallback(() => {
-    localStorage.removeItem('@ToMaisVip:token')
-    localStorage.removeItem('@ToMaisVip:user')
+    localStorage.removeItem('@Plunge:token')
+    localStorage.removeItem('@Plunge:user')
 
     handleSetProperties({
       user: undefined,
@@ -129,6 +129,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       setBearerToken({ token: currentToken })
 
+      navigate('/feed')
+
       return
     }
 
@@ -138,7 +140,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     })
 
     handleSignOut()
-  }, [addToast, handleSetProperties, handleSignOut])
+  }, [addToast, handleSetProperties, handleSignOut, navigate])
 
   return (
     <AuthContext.Provider
