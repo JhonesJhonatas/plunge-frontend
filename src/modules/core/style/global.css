@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-  @apply bg-slate-950 text-slate-50
+body {
+  @apply bg-slate-950 text-slate-50;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
