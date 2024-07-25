@@ -1,8 +1,6 @@
-type User = {
-  id: string
-  name: string
-  email: string
-}
+import { User } from '@user'
+
+export interface SignInUser extends Omit<User, 'createdAt'> {}
 
 export interface SignInProps {
   email: string
@@ -10,6 +8,6 @@ export interface SignInProps {
 }
 
 export interface SignInResponse {
-  user: User
+  user: SignInUser
   accessToken: string
 }

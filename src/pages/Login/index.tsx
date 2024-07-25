@@ -1,11 +1,12 @@
 import React, { useCallback } from 'react'
 
+import { z } from 'zod'
+
 import applicationMockup from '@assets/aplication-mockup.png'
 import logoHorizontal from '@assets/logo-horizontal.png'
 
 import { Button, Form, Link } from '@components'
-import { z } from 'zod'
-import { useAuth } from '@/modules/user/hooks/use-auth'
+import { useAuth } from '@user'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Email inválido' }),
