@@ -1,6 +1,7 @@
 import React from 'react'
 
 import * as RadixToast from '@radix-ui/react-toast'
+import { FiX } from 'react-icons/fi'
 
 interface ToastProps {
   title: string
@@ -21,23 +22,25 @@ export const Toast: React.FC<ToastProps> = ({
 }) => {
   return (
     <RadixToast.Root
-      className="bg-white rounded-md shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] p-[15px] grid [grid-template-areas:_'title_action'_'description_action'] grid-cols-[auto_max-content] gap-x-[15px] items-center data-[state=open]:animate-slideIn data-[state=closed]:animate-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-swipeOut"
+      className="bg-slate-600 border-2 border-slate-500 rounded-md shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] p-2 flex items-start gap-2 data-[state=open]:animate-slideIn data-[state=closed]:animate-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-swipeOut"
       open={open}
       onOpenChange={setOpen}
     >
-      <RadixToast.Title className="[grid-area:_title] mb-[5px] font-medium text-slate-950 text-[15px]">
-        {title}
-      </RadixToast.Title>
-      {description ? (
-        <RadixToast.Description asChild>
-          <span>{description}</span>
-        </RadixToast.Description>
-      ) : null}
+      <div className="flex flex-col gap-1 w-full">
+        <RadixToast.Title asChild>
+          <span className="font-bold text-zinc-50">{title}</span>
+        </RadixToast.Title>
+        {description ? (
+          <RadixToast.Description asChild>
+            <span className="text-zinc-200">{description}</span>
+          </RadixToast.Description>
+        ) : null}
+      </div>
       {buttonText && buttonAction ? (
         <RadixToast.Action
           className="[grid-area:_action]"
-          asChild
           altText="Goto schedule to undo"
+          asChild
         >
           <button
             onClick={buttonAction}
@@ -48,7 +51,9 @@ export const Toast: React.FC<ToastProps> = ({
         </RadixToast.Action>
       ) : null}
 
-      <RadixToast.Close />
+      <RadixToast.Close asChild>
+        <FiX className="text-zinc-50" />
+      </RadixToast.Close>
     </RadixToast.Root>
   )
 }
