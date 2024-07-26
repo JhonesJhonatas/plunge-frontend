@@ -10,6 +10,7 @@ const avatar = tv({
       sm: 'w-8 h-8',
       md: 'w-12 h-12',
       lg: 'w-16 h-16',
+      xlg: 'w-32 h-32',
     },
   },
   defaultVariants: {

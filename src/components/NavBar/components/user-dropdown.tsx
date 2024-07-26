@@ -3,9 +3,12 @@ import React from 'react'
 import { useAuth } from '@user'
 
 import { Avatar, DropDown } from '@components'
-import { GoSignOut } from 'react-icons/go'
+import { GoPerson, GoSignOut } from 'react-icons/go'
+import { useNavigate } from 'react-router-dom'
 
 export const UserDropDown: React.FC = () => {
+  const navigate = useNavigate()
+
   const {
     handlers: { handleSignOut },
     user,
@@ -27,6 +30,11 @@ export const UserDropDown: React.FC = () => {
             </div>
           </div>
         ) : null}
+        <DropDown.Item
+          label="Meu Perfil"
+          icon={GoPerson}
+          onClick={() => navigate('/profile')}
+        />
         <DropDown.Item label="Sair" icon={GoSignOut} onClick={handleSignOut} />
       </DropDown.Content>
     </DropDown>

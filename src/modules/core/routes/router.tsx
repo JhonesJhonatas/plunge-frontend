@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Route, Routes } from 'react-router-dom'
 
-import { CreateUser, Feed, Login } from '@pages'
+import { CreateUser, Feed, Login, Profile } from '@pages'
 import { PrivateRoute } from './private-route'
 import { DefaultLayout } from '../layout/defaultLayout'
 
@@ -15,6 +15,11 @@ export const Router: React.FC = () => {
 
       <Route path="/" element={<DefaultLayout />}>
         <Route path="/feed" element={<PrivateRoute Component={<Feed />} />} />
+
+        <Route
+          path="/profile"
+          element={<PrivateRoute Component={<Profile />} />}
+        />
       </Route>
     </Routes>
   )

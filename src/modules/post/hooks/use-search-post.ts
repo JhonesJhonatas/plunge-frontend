@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { Post, searchPost, SearchPostProps } from '@post'
 
@@ -32,10 +32,10 @@ export const useSearchPost = (): UseSearchPostResponse => {
   }, [])
 
   const handleSearchPost = useCallback(
-    async ({ content }: SearchPostProps) => {
+    async ({ content, userId }: SearchPostProps) => {
       handleSetProperties({ loading: true })
       try {
-        const { data } = await searchPost({ content })
+        const { data } = await searchPost({ content, userId })
 
         handleSetProperties({ posts: data })
       } catch (err) {
@@ -48,10 +48,6 @@ export const useSearchPost = (): UseSearchPostResponse => {
     },
     [addToast, handleSetProperties],
   )
-
-  useEffect(() => {
-    handleSearchPost({})
-  }, [handleSearchPost])
 
   return {
     loading: properties.loading,
