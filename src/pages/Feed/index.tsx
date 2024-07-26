@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useSearchPost } from '@post'
 
 import { Post, CreatePost } from '@components'
 
 export const Feed: React.FC = () => {
-  const { posts } = useSearchPost()
+  const {
+    posts,
+    handlers: { handleSearchPost },
+  } = useSearchPost()
+
+  useEffect(() => {
+    handleSearchPost({})
+  }, [handleSearchPost])
 
   return (
     <div className="flex justify-between gap-4">
