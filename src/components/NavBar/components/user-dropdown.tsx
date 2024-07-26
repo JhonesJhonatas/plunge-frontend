@@ -3,7 +3,7 @@ import React from 'react'
 import { useAuth } from '@user'
 
 import { Avatar, DropDown } from '@components'
-import { GoPerson, GoSignOut } from 'react-icons/go'
+import { GoChevronDown, GoPerson, GoSignOut } from 'react-icons/go'
 import { useNavigate } from 'react-router-dom'
 
 export const UserDropDown: React.FC = () => {
@@ -17,7 +17,12 @@ export const UserDropDown: React.FC = () => {
   return (
     <DropDown>
       <DropDown.Trigger>
-        <Avatar size="sm" />
+        <div className="relative">
+          <Avatar size="sm" />
+          <div className="bg-slate-600 rounded-full h-3 w-3 absolute bottom-0 right-0 flex flex-col items-center justify-center hover:scale-110 transition-all">
+            <GoChevronDown size={10} />
+          </div>
+        </div>
       </DropDown.Trigger>
 
       <DropDown.Content>
