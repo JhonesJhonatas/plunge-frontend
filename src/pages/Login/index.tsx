@@ -20,6 +20,7 @@ type FormSchema = z.infer<typeof formSchema>
 
 export const Login: React.FC = () => {
   const {
+    isSubmitting,
     handlers: { handleSignIn },
   } = useAuth()
   const { email } = useParams()
@@ -56,7 +57,12 @@ export const Login: React.FC = () => {
               placeholder="******"
               boxSize="lg"
             />
-            <Button type="submit" width="lg">
+            <Button
+              type="submit"
+              loading={isSubmitting}
+              loadingMessage="Verificando as credenciais..."
+              width="lg"
+            >
               Entrar
             </Button>
           </Form>

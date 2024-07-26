@@ -9,7 +9,7 @@ import {
 
 export async function createPost(params: CreatePostProps) {
   return request<CreatePostResponse>({
-    url: '',
+    url: '/post',
     method: 'post',
     body: params,
   })

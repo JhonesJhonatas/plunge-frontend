@@ -2,7 +2,7 @@ import React, { ButtonHTMLAttributes, ReactNode } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
 const button = tv({
-  base: 'p-2 rounded bg-blue-600',
+  base: 'p-2 rounded bg-blue-600 transition-all',
   variants: {
     width: {
       xs: 'w-2/12',
@@ -12,7 +12,11 @@ const button = tv({
       block: 'w-full',
     },
     typeColor: {
-      primary: 'bg-blue-600 hover:bg-blue-500 transition-all',
+      primary: 'bg-blue-600 hover:bg-blue-500',
+    },
+    disabled: {
+      true: 'bg-zinc-700  cursor-not-allowed hover:bg-zinc-700',
+      false: '',
     },
   },
   defaultVariants: {
@@ -43,11 +47,11 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type={type}
-      disabled={disabled || loading}
+      disabled={loading || disabled}
       {...rest}
-      className={button({ width })}
+      className={button({ width, disabled: loading || disabled })}
     >
-      {loadingMessage || children}
+      {loading ? loadingMessage : children}
     </button>
   )
 }
