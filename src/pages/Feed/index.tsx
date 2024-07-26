@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { CreatePost } from '@/pages/Feed/components/create-post'
-
 import { useSearchPost } from '@post'
-import { Post } from './components/post'
+
+import { Post, CreatePost } from '@components'
 
 export const Feed: React.FC = () => {
   const { posts } = useSearchPost()

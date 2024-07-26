@@ -8,7 +8,7 @@ import React, {
 
 import { jwtDecode } from 'jwt-decode'
 import { getUnixTime } from 'date-fns'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useToast } from '@/components'
 import { signIn } from '@user'
@@ -49,6 +49,7 @@ export const AuthContext = createContext({} as AuthContextSchema)
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const { addToast } = useToast()
 
   const [properties, setProperties] = useState({} as Properties)
@@ -131,7 +132,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       setBearerToken({ token: currentToken })
 
-      navigate('/feed')
+      if (pathname === '/') {
+        navigate('/feed')
+      }
 
       return
     }
@@ -142,7 +145,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     })
 
     handleSignOut()
-  }, [addToast, handleSetProperties, handleSignOut, navigate])
+  }, [addToast, handleSetProperties, handleSignOut, navigate, pathname])
 
   return (
     <AuthContext.Provider
