@@ -8,7 +8,7 @@ interface TriggerProps {
 
 export const Trigger: React.FC<TriggerProps> = ({ children }) => {
   return (
-    <DropdownMenu.Trigger className="outline-none">
+    <DropdownMenu.Trigger className="outline-none" asChild>
       {children}
     </DropdownMenu.Trigger>
   )

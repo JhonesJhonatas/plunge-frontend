@@ -17,7 +17,7 @@ export const Router: React.FC = () => {
         <Route path="/feed" element={<PrivateRoute Component={<Feed />} />} />
 
         <Route
-          path="/profile"
+          path="/profile/:userId"
           element={<PrivateRoute Component={<Profile />} />}
         />
       </Route>

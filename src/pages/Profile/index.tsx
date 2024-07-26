@@ -2,18 +2,19 @@ import React, { useEffect } from 'react'
 
 import { Avatar, CreatePost, Post } from '@components'
 import { useSearchPost } from '@/modules/post'
-import { useAuth } from '@/modules/user'
+
+import { useParams } from 'react-router-dom'
 
 export const Profile: React.FC = () => {
-  const { user } = useAuth()
+  const { userId } = useParams()
   const {
     posts,
     handlers: { handleSearchPost },
   } = useSearchPost()
 
   useEffect(() => {
-    handleSearchPost({ userId: user.id })
-  }, [handleSearchPost, user.id])
+    handleSearchPost({ userId })
+  }, [handleSearchPost, userId])
 
   return (
     <div className="flex justify-between gap-4">
@@ -40,8 +41,21 @@ export const Profile: React.FC = () => {
         </div>
       </div>
       <div className="w-3/12">
-        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded p-2 border-2 border-slate-800">
-          <span>Right</span>
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded p-2 border-2 border-slate-800 flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <span className="font-bold">Amigos</span>
+            <span className="text-zinc-500">(102)</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <Avatar size="sm" />
+            <Avatar size="sm" />
+            <Avatar size="sm" />
+            <Avatar size="sm" />
+            <Avatar size="sm" />
+            <Avatar size="sm" />
+            <Avatar size="sm" />
+            <Avatar size="sm" />
+          </div>
         </div>
       </div>
     </div>
