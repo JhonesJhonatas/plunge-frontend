@@ -9,6 +9,7 @@ const button = tv({
       sm: 'w-4/12',
       md: 'w-6/12',
       lg: 'w-8/12',
+      fit: 'w-fit',
       block: 'w-full',
     },
     typeColor: {

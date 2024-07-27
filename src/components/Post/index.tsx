@@ -36,9 +36,9 @@ export const Post: React.FC<PostProps> = ({
           <img src={mediaUrl} alt="" className="max-h-52 rounded" />
         ) : null}
       </div>
-      <div className="p-2">
+      <div className="p-2 flex gap-1">
         <span className="text-zinc-600 font-bold">{ups}</span>
-        <span className="text-zinc-600"> Votos positivos</span>
+        <span className="text-zinc-600">Curtidas</span>
       </div>
       <div className="w-full rounded-full border-2 border-slate-800 flex items-center justify-between gap-2 pr-6">
         <div className="flex items-center gap-4 py-3 px-4 rounded-full border-2 border-slate-800 bg-slate-900 w-fit">

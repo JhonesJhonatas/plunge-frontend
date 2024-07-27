@@ -23,6 +23,7 @@ type User = {
   id: string
   name: string
   email: string
+  nickName: string
 }
 
 type AuthContextSchema = {

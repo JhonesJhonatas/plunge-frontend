@@ -38,7 +38,7 @@ export const UserDropDown: React.FC = () => {
         <DropDown.Item
           label="Meu Perfil"
           icon={GoPerson}
-          onClick={() => navigate(`/profile/${user.id}`)}
+          onClick={() => navigate(`/profile/${user.nickName}`)}
         />
         <DropDown.Item label="Sair" icon={GoSignOut} onClick={handleSignOut} />
       </DropDown.Content>

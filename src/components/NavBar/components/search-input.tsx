@@ -5,11 +5,12 @@ import { tv } from 'tailwind-variants'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { GoPerson, GoVersions } from 'react-icons/go'
+import { GoPerson, GoPersonAdd, GoVersions } from 'react-icons/go'
 
-import { useSearchUser } from '@user'
-import { Avatar } from '@components'
+import { useAuth, useSearchUser } from '@user'
+import { Avatar, Button } from '@components'
 import { useSearchPost } from '@post'
+import { useNavigate } from 'react-router-dom'
 
 const formSchema = z.object({
   search: z.string(),
@@ -47,6 +48,8 @@ interface SearchInputProps {
 }
 
 export const SearchInput: React.FC<SearchInputProps> = ({ placeholder }) => {
+  const navigate = useNavigate()
+  const { user } = useAuth()
   const {
     users,
     handlers: { handleSearchUser },
@@ -76,6 +79,15 @@ export const SearchInput: React.FC<SearchInputProps> = ({ placeholder }) => {
     })
   }, [])
 
+  const handleRequestFollow = useCallback(
+    (followingId: string) => {
+      console.log('---------- DEBUG ----------')
+      console.log(user?.id, followingId)
+      console.log('---------- DEBUG ----------')
+    },
+    [user?.id],
+  )
+
   const searchInput = watch('search')
 
   const emptyMessage = useMemo(() => {
@@ -102,14 +114,20 @@ export const SearchInput: React.FC<SearchInputProps> = ({ placeholder }) => {
       return users.map((user) => {
         return (
           <div
-            className="w-full flex items-center gap-2 py-1 px-2 cursor-pointer outline-none bg-slate-500 bg-opacity-30 hover:bg-opacity-55 transition-all rounded"
+            onClick={() => navigate(`/profile/${user.nickName}`)}
+            className="w-full flex items-center gap-2 justify-between py-1 px-2 cursor-pointer outline-none bg-slate-500 bg-opacity-30 hover:bg-opacity-55 transition-all rounded"
             key={user.id}
           >
-            <Avatar size="sm" />
-            <div className="flex flex-col">
-              <span className="font-bold">{user.name}</span>
-              <span className="text-zinc-400 text-sm">Resumo da Bio</span>
+            <div className="flex items-center gap-2">
+              <Avatar size="sm" />
+              <div className="flex flex-col">
+                <span className="font-bold">{user.name}</span>
+                <span className="text-zinc-400 text-sm">Resumo da Bio</span>
+              </div>
             </div>
+            <Button width="fit">
+              <GoPersonAdd onClick={() => handleRequestFollow(user.id)} />
+            </Button>
           </div>
         )
       })
@@ -131,7 +149,14 @@ export const SearchInput: React.FC<SearchInputProps> = ({ placeholder }) => {
     }
 
     return emptyMessage
-  }, [emptyMessage, posts, properties.searchType, users])
+  }, [
+    emptyMessage,
+    handleRequestFollow,
+    navigate,
+    posts,
+    properties.searchType,
+    users,
+  ])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

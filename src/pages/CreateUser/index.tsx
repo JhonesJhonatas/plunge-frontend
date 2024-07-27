@@ -11,6 +11,9 @@ const formSchema = z
     name: z
       .string()
       .min(3, { message: 'Nome deve ter no mínimo 3 caracteres' }),
+    nickName: z
+      .string()
+      .min(3, { message: 'NickName deve ter no mínimo 3 caracteres' }),
     email: z.string().email({ message: 'Email inválido' }),
     password: z
       .string()
@@ -33,8 +36,8 @@ export const CreateUser: React.FC = () => {
   } = useCreateUser()
 
   const onSubmit = useCallback(
-    ({ email, name, password }: FormSchema) => {
-      handleCreateUser({ email, name, password })
+    ({ email, name, nickName, password }: FormSchema) => {
+      handleCreateUser({ email, name, password, nickName })
     },
     [handleCreateUser],
   )
@@ -59,6 +62,12 @@ export const CreateUser: React.FC = () => {
             label="Nome"
             name="name"
             placeHolder="Seu Nome"
+            type="text"
+          />
+          <Form.Input
+            label="NickName"
+            name="nickName"
+            placeHolder="Apelido"
             type="text"
           />
           <Form.Input

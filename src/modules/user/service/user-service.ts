@@ -3,6 +3,8 @@ import { request } from '@core'
 import {
   CreateUserProps,
   CreateUserResponse,
+  GetProfileDataProps,
+  GetProfileDataResponse,
   SearchUserProps,
   SearchUserResponse,
   SignInProps,
@@ -28,6 +30,14 @@ export async function createUser(params: CreateUserProps) {
 export async function searchUser(params: SearchUserProps) {
   return request<SearchUserResponse>({
     url: '/user',
+    method: 'get',
+    params,
+  })
+}
+
+export async function getProfileData(params: GetProfileDataProps) {
+  return request<GetProfileDataResponse>({
+    url: '/user/get-profile-data',
     method: 'get',
     params,
   })
