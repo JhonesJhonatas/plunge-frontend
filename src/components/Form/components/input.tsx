@@ -96,7 +96,7 @@ export const Input: React.FC<InputProps> = ({
       <div className="relative w-full">
         <input
           {...register(name)}
-          className="w-full p-2 rounded bg-slate-700"
+          className="w-full p-2 rounded bg-slate-700 outline-none border-2 border-transparent focus:border-2 focus:border-blue-600"
           placeholder={placeHolder}
           type={type === 'password' ? typePassword : type}
           {...props}

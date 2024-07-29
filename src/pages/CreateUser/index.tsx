@@ -1,46 +1,32 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 
-import { z } from 'zod'
-import { GoArrowLeft } from 'react-icons/go'
+import { GoArrowLeft, GoPerson, GoShieldLock } from 'react-icons/go'
 
-import { Button, Form, Link } from '@components'
-import { useCreateUser } from '@/modules/user'
+import { ContentProps, Link, MultiStep } from '@components'
 
-const formSchema = z
-  .object({
-    name: z
-      .string()
-      .min(3, { message: 'Nome deve ter no mínimo 3 caracteres' }),
-    nickName: z
-      .string()
-      .min(3, { message: 'NickName deve ter no mínimo 3 caracteres' }),
-    email: z.string().email({ message: 'Email inválido' }),
-    password: z
-      .string()
-      .min(6, { message: 'Senha deve ter no mínimo 6 caracteres' }),
-    confirmPassword: z
-      .string()
-      .min(6, { message: 'Senha deve ter no mínimo 6 caracteres' }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Senhas não conferem',
-    path: ['confirmPassword'],
-  })
+import { PersonalStep } from './components/personal-step'
+import { SecurityStep } from './components/security-step'
 
-type FormSchema = z.infer<typeof formSchema>
+type FormData = {
+  name: string
+  nickName: string
+  email: string
+  bio: string
+  password: string
+}
 
 export const CreateUser: React.FC = () => {
-  const {
-    loading,
-    handlers: { handleCreateUser },
-  } = useCreateUser()
+  const [formData, setFormData] = useState<FormData>({} as FormData)
 
-  const onSubmit = useCallback(
-    ({ email, name, nickName, password }: FormSchema) => {
-      handleCreateUser({ email, name, password, nickName })
-    },
-    [handleCreateUser],
-  )
+  const handleSetFormData = useCallback((params: Partial<FormData>) => {
+    setFormData((oldState) => ({ ...oldState, ...params }))
+  }, [])
+
+  const handleFinish = useCallback(() => {
+    console.log('---------- DEBUG ----------')
+    console.log(formData)
+    console.log('---------- DEBUG ----------')
+  }, [formData])
 
   return (
     <div className="w-screen h-screen flex flex-col items-center justify-center">
@@ -53,45 +39,38 @@ export const CreateUser: React.FC = () => {
           </div>
           <Link label="Voltar" href="/" icon={GoArrowLeft} />
         </div>
-        <Form
-          onSubmitForm={onSubmit}
-          formSchema={formSchema}
-          className="flex flex-col gap-6 p-8"
-        >
-          <Form.Input
-            label="Nome"
-            name="name"
-            placeHolder="Seu Nome"
-            type="text"
-          />
-          <Form.Input
-            label="NickName"
-            name="nickName"
-            placeHolder="Apelido"
-            type="text"
-          />
-          <Form.Input
-            label="Email"
-            name="email"
-            placeHolder="seuemail@email.com"
-            type="text"
-          />
-          <Form.Input
-            label="Senha"
-            name="password"
-            placeHolder="******"
-            type="password"
-          />
-          <Form.Input
-            label="Confirme sua senha"
-            name="confirmPassword"
-            placeHolder="******"
-            type="password"
-          />
-          <Button type="submit" disabled={loading}>
-            Criar
-          </Button>
-        </Form>
+
+        <MultiStep
+          onFinished={handleFinish}
+          allowHeaderControl={false}
+          steps={[
+            {
+              header: {
+                title: 'Dados Pessoais',
+                icon: GoPerson,
+              },
+              content: ({ handleNextStep }: ContentProps) => (
+                <PersonalStep
+                  onSubmit={handleNextStep}
+                  handleSetFormData={handleSetFormData}
+                />
+              ),
+            },
+            {
+              header: {
+                title: 'Segurança',
+                icon: GoShieldLock,
+              },
+              content: ({ handleNextStep, handlePrevStep }: ContentProps) => (
+                <SecurityStep
+                  onSubmit={handleNextStep}
+                  prevStep={handlePrevStep}
+                  handleSetFormData={handleSetFormData}
+                />
+              ),
+            },
+          ]}
+        />
       </div>
     </div>
   )
