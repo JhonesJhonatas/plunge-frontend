@@ -12,3 +12,4 @@ export * from '@user/types/user'
 export * from '@user/service/user-service'
 
 export * from '@user/providers/auth-provider'
+export * from '@user/providers/create-user-multistep-provider'

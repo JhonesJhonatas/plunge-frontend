@@ -6,6 +6,10 @@ import { ZodSchema } from 'zod'
 
 import { Input } from '@/components/Form/components/input'
 import { CreatePostInput } from '@/components/Form/components/create-post-input'
+import {
+  NickNameInput,
+  NickNameInputProps,
+} from '@/components/Form/components/nick-name-input'
 
 type FormData<T extends ZodSchema> =
   T extends ZodSchema<infer Data> ? Data : never
@@ -16,6 +20,7 @@ interface FormProps<T extends ZodSchema>
   formSchema: T
   onSubmitForm: SubmitHandler<FormData<T>>
   className?: string
+  defaultValue?: FormData<T>
 }
 
 export const Form = <T extends ZodSchema>({
@@ -23,9 +28,11 @@ export const Form = <T extends ZodSchema>({
   formSchema,
   onSubmitForm,
   className,
+  defaultValue,
 }: FormProps<T>) => {
   const methods = useForm<FormData<T>>({
     resolver: zodResolver(formSchema),
+    defaultValues: defaultValue,
   })
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
@@ -47,3 +54,4 @@ export const Form = <T extends ZodSchema>({
 
 Form.Input = Input
 Form.CreatePostInput = CreatePostInput
+Form.NickNameInput = NickNameInput as React.FC<NickNameInputProps>

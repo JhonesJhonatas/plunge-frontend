@@ -21,12 +21,14 @@ type Header = {
   title: string
 }
 
-type HandleNextStep = () => void
-type HandlePrevStep = () => void
+type HandleNextStep = (onPrev?: () => void) => void
+type HandlePrevStep = (onNext?: () => void) => void
+type HandleFinish = (onFinish?: () => void) => void
 
 export interface ContentProps {
   handleNextStep: HandleNextStep
   handlePrevStep: HandlePrevStep
+  handleFinish: HandleFinish
 }
 
 type Step = {
@@ -40,39 +42,55 @@ interface MultiStepProps {
   allowHeaderControl?: boolean
 }
 
-type Properties = {
-  currentStep: number
-}
-
 export const MultiStep: React.FC<MultiStepProps> = ({
   steps,
   onFinished,
   allowHeaderControl,
 }) => {
-  const [properties, setProperties] = useState<Properties>({
-    currentStep: 0,
-  } as Properties)
+  const [currentStep, setCurrentStep] = useState(0)
 
-  const handleSetProperties = useCallback((params: Partial<Properties>) => {
-    setProperties((oldState) => ({ ...oldState, ...params }))
-  }, [])
+  const handleNextStep = useCallback(
+    (onNext?: () => void) => {
+      if (currentStep === steps.length - 1) {
+        return
+      }
 
-  const handleNextStep = useCallback(() => {
-    if (properties.currentStep === steps.length - 1) {
-      onFinished()
-      return
-    }
+      if (onNext) {
+        onNext()
+      }
 
-    handleSetProperties({ currentStep: properties.currentStep + 1 })
-  }, [handleSetProperties, onFinished, properties.currentStep, steps.length])
+      setCurrentStep((oldState) => oldState + 1)
+    },
+    [currentStep, steps.length],
+  )
 
-  const handlePrevStep = useCallback(() => {
-    if (properties.currentStep === 0) {
-      return
-    }
+  const handlePrevStep = useCallback(
+    (onNext?: () => void) => {
+      if (currentStep === 0) {
+        return
+      }
 
-    handleSetProperties({ currentStep: properties.currentStep - 1 })
-  }, [handleSetProperties, properties.currentStep])
+      if (onNext) {
+        onNext()
+      }
+
+      setCurrentStep((oldState) => oldState - 1)
+    },
+    [currentStep],
+  )
+
+  const handleFinish = useCallback(
+    (onNext?: () => void) => {
+      if (currentStep === steps.length - 1) {
+        if (onNext) {
+          onNext()
+        }
+
+        onFinished()
+      }
+    },
+    [currentStep, onFinished, steps.length],
+  )
 
   return (
     <div className="flex flex-col gap-2 p-4">
@@ -82,15 +100,15 @@ export const MultiStep: React.FC<MultiStepProps> = ({
             key={index}
             onClick={() => {
               if (allowHeaderControl) {
-                handleSetProperties({ currentStep: index })
+                setCurrentStep(index)
               }
             }}
             className="flex flex-col items-center"
           >
             <div
               className={stepIcon({
-                isCurrentStep: properties.currentStep === index,
-                isCompletedStep: properties.currentStep > index,
+                isCurrentStep: currentStep === index,
+                isCompletedStep: currentStep > index,
               })}
             >
               <step.header.icon />
@@ -100,9 +118,10 @@ export const MultiStep: React.FC<MultiStepProps> = ({
         ))}
       </div>
       <div>
-        {steps[properties.currentStep].content({
+        {steps[currentStep].content({
           handleNextStep,
           handlePrevStep,
+          handleFinish,
         })}
       </div>
     </div>
