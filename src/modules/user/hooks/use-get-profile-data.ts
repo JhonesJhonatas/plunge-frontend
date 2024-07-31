@@ -10,12 +10,12 @@ import { useToast } from '@components'
 
 type Properties = {
   loading: boolean
-  user: GetProfileDataResponse
+  profileData: GetProfileDataResponse
 }
 
 interface UseGetProfileResponse {
   loading: boolean
-  user: GetProfileDataResponse
+  profileData: GetProfileDataResponse
   handlers: {
     handleGetProfileData: (params: GetProfileDataProps) => void
   }
@@ -41,7 +41,7 @@ export const useGetProfileData = (): UseGetProfileResponse => {
       try {
         const { data } = await getProfileData({ nickName })
 
-        handleSetProperties({ user: data })
+        handleSetProperties({ profileData: data })
       } catch (err) {
         addToast({
           title: 'Erro ao buscar os usuários',
@@ -55,7 +55,7 @@ export const useGetProfileData = (): UseGetProfileResponse => {
 
   return {
     loading: properties.loading,
-    user: properties.user,
+    profileData: properties.profileData,
     handlers: {
       handleGetProfileData,
     },
