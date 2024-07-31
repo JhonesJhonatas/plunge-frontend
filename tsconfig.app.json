@@ -30,6 +30,7 @@
       "@components": ["./components"],
       "@pages": ["./pages"],
       "@core": ["./modules/core"],
+      "@followers": ["./modules/followers"],
       "@post": ["./modules/post"],
       "@user": ["./modules/user"],
       "@user/*": ["./modules/user/*"],
