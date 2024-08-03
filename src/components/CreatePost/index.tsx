@@ -5,6 +5,7 @@ import { GoFileMedia } from 'react-icons/go'
 
 import { Avatar, Button, Form } from '@components'
 import { useCreatePost } from '@post'
+import { useAuth } from '@/modules/user'
 
 const formSchema = z.object({
   content: z
@@ -15,6 +16,9 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>
 
 export const CreatePost: React.FC = () => {
+  const {
+    user: { avatarUrl },
+  } = useAuth()
   const {
     loading,
     handlers: { handleCreatePost },
@@ -36,7 +40,7 @@ export const CreatePost: React.FC = () => {
       className="bg-gradient-to-br from-slate-800 to-slate-900 rounded p-2 border-2 border-slate-800 flex flex-col gap-2"
     >
       <div className="flex items-start gap-2">
-        <Avatar />
+        <Avatar avatarUrl={avatarUrl} />
         <Form.CreatePostInput
           name="content"
           placeholder="No que está pensando?"

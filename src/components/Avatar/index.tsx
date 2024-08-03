@@ -1,7 +1,8 @@
 import React from 'react'
 
-import avatarPlaceholder from '@assets/placeholders/avatar-placeholder.jpg'
 import { tv, VariantProps } from 'tailwind-variants'
+
+import avatarPlaceholder from '@/assets/placeholders/avatar-placeholder.jpg'
 
 const avatar = tv({
   base: 'rounded-full',
@@ -20,12 +21,18 @@ const avatar = tv({
 
 type AvatarStyle = VariantProps<typeof avatar>
 
-interface AvatarProps extends AvatarStyle {}
+interface AvatarProps extends AvatarStyle {
+  avatarUrl?: string
+}
 
-export const Avatar: React.FC<AvatarProps> = ({ size }) => {
+export const Avatar: React.FC<AvatarProps> = ({ size, avatarUrl }) => {
   return (
     <div>
-      <img src={avatarPlaceholder} alt="Avatar" className={avatar({ size })} />
+      <img
+        src={avatarUrl || avatarPlaceholder}
+        alt="Avatar"
+        className={avatar({ size })}
+      />
     </div>
   )
 }

@@ -1,6 +1,10 @@
-import { User } from '@user'
-
-export interface SignInUser extends Omit<User, 'createdAt'> {}
+export interface SignInUser {
+  id: string
+  name: string
+  email: string
+  nickName: string
+  avatarUrl: string
+}
 
 export interface SignInProps {
   email: string

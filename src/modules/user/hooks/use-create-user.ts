@@ -19,11 +19,17 @@ export const useCreateUser = (): UseCreateUserResponse => {
   const [loading, setLoading] = useState(false)
 
   const handleCreateUser = useCallback(
-    async ({ name, email, password, nickName }: CreateUserProps) => {
+    async ({ name, email, password, nickName, bio }: CreateUserProps) => {
       setLoading(true)
 
       try {
-        const { data } = await createUser({ name, email, password, nickName })
+        const { data } = await createUser({
+          name,
+          email,
+          bio,
+          password,
+          nickName,
+        })
 
         navigate(`/${data.email}`)
 
