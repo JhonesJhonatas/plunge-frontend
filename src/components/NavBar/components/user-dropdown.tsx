@@ -18,7 +18,7 @@ export const UserDropDown: React.FC = () => {
     <DropDown>
       <DropDown.Trigger>
         <div className="relative">
-          <Avatar size="sm" />
+          <Avatar size="sm" avatarUrl={user?.avatarUrl} />
           <div className="bg-slate-600 rounded-full h-3 w-3 absolute bottom-0 right-0 flex flex-col items-center justify-center hover:scale-110 transition-all">
             <GoChevronDown size={10} />
           </div>
@@ -28,7 +28,7 @@ export const UserDropDown: React.FC = () => {
       <DropDown.Content>
         {user ? (
           <div className="flex gap-2 p-2 rounded border-2 items-center border-slate-500">
-            <Avatar size="sm" />
+            <Avatar size="sm" avatarUrl={user?.avatarUrl} />
             <div className="flex flex-col ">
               <span className="font-bold text-sm">{user.name}</span>
               <span className="text-xs">{user.email}</span>

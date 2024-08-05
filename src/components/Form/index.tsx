@@ -19,6 +19,7 @@ interface FormProps<T extends ZodSchema>
   children: React.ReactNode
   formSchema: T
   onSubmitForm: SubmitHandler<FormData<T>>
+  resetOnSubmit?: boolean
   className?: string
   defaultValue?: FormData<T>
 }
@@ -27,6 +28,7 @@ export const Form = <T extends ZodSchema>({
   children,
   formSchema,
   onSubmitForm,
+  resetOnSubmit,
   className,
   defaultValue,
 }: FormProps<T>) => {
@@ -40,6 +42,9 @@ export const Form = <T extends ZodSchema>({
   ) => {
     methods.handleSubmit(async (data) => {
       await onSubmitForm(data)
+      if (resetOnSubmit) {
+        methods.reset()
+      }
     })(event)
   }
 

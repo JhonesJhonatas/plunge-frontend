@@ -119,7 +119,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({ placeholder }) => {
             key={user.id}
           >
             <div className="flex items-center gap-2">
-              <Avatar size="sm" />
+              <Avatar size="sm" avatarUrl={user.avatarUrl} />
               <div className="flex flex-col">
                 <span className="font-bold">{user.name}</span>
                 <span className="text-zinc-400 text-sm">Resumo da Bio</span>

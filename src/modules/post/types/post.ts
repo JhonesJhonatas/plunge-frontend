@@ -1,16 +1,30 @@
 export type Author = {
   id: string
   name: string
+  nickName: string
   avatarUrl?: string
+}
+
+export type PostLike = {
+  id: string
+  createdAt: Date
+  user: {
+    id: string
+    name: string
+    nickName: string
+    avatarUrl: string
+  }
 }
 
 export type Post = {
   id: string
   content: string
   mediaUrl?: string
-  ups: number
-  downs: number
   author: Author
-  createdAt: string
-  updatedAt: string
+  likes: PostLike[]
+  likesCount: number
+  userCanLike: boolean
+  userAleradyLiked: boolean
+  createdAt: Date
+  updatedAt: Date
 }

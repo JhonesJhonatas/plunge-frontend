@@ -6,7 +6,7 @@ import { NavItem } from '@/components/NavBar/components/NavItem'
 import { UserDropDown } from '@/components/NavBar/components/user-dropdown'
 import { SearchInput } from '@/components/NavBar/components/search-input'
 
-import { GoCommentDiscussion, GoVersions } from 'react-icons/go'
+import { GoBriefcase, GoCommentDiscussion, GoVersions } from 'react-icons/go'
 
 export const NavBar: React.FC = () => {
   return (
@@ -18,6 +18,12 @@ export const NavBar: React.FC = () => {
         </div>
         <div className="flex items-center gap-6">
           <NavItem icon={GoVersions} label="Feed" path="/feed" />
+          <NavItem
+            icon={GoBriefcase}
+            label="Vagas"
+            path="/vacancies"
+            disabled
+          />
           <NavItem
             icon={GoCommentDiscussion}
             label="Mensagens"

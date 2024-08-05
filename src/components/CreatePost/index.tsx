@@ -4,7 +4,8 @@ import { z } from 'zod'
 import { GoFileMedia } from 'react-icons/go'
 
 import { Avatar, Button, Form } from '@components'
-import { useCreatePost } from '@post'
+import { CreatePostProps as CreatePostParams } from '@post'
+import { useAuth } from '@/modules/user'
 
 const formSchema = z.object({
   content: z
@@ -14,11 +15,18 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>
 
-export const CreatePost: React.FC = () => {
+interface CreatePostProps {
+  loading?: boolean
+  handleCreatePost: (params: CreatePostParams) => void
+}
+
+export const CreatePost: React.FC<CreatePostProps> = ({
+  handleCreatePost,
+  loading,
+}) => {
   const {
-    loading,
-    handlers: { handleCreatePost },
-  } = useCreatePost()
+    user: { avatarUrl },
+  } = useAuth()
 
   const handleSubmit = useCallback(
     ({ content }: FormSchema) => {
@@ -33,10 +41,11 @@ export const CreatePost: React.FC = () => {
     <Form
       formSchema={formSchema}
       onSubmitForm={handleSubmit}
+      resetOnSubmit
       className="bg-gradient-to-br from-slate-800 to-slate-900 rounded p-2 border-2 border-slate-800 flex flex-col gap-2"
     >
       <div className="flex items-start gap-2">
-        <Avatar />
+        <Avatar avatarUrl={avatarUrl} />
         <Form.CreatePostInput
           name="content"
           placeholder="No que está pensando?"

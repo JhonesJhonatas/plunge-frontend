@@ -24,6 +24,7 @@ type User = {
   name: string
   email: string
   nickName: string
+  avatarUrl: string
 }
 
 type AuthContextSchema = {

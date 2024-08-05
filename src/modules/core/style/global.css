@@ -7,12 +7,23 @@ body {
 }
 
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
+  /* .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
+  } */
+}
+::-webkit-scrollbar {
+  @apply w-2 bg-slate-900 rounded-full;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-900 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-blue-950 rounded-full;
 }
