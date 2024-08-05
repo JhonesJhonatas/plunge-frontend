@@ -1,10 +1,31 @@
 import React from 'react'
 
-import { GoKebabHorizontal, GoPencil, GoTrash } from 'react-icons/go'
+import {
+  GoKebabHorizontal,
+  GoPencil,
+  GoPersonAdd,
+  GoTrash,
+} from 'react-icons/go'
+
+import { useDeletePost } from '@post'
 
 import { DropDown } from '@components'
 
-export const OptionsDropdown: React.FC = () => {
+interface OptionsDropdownProps {
+  isAuthor: boolean
+  authorNickName: string
+  postId: string
+}
+
+export const OptionsDropdown: React.FC<OptionsDropdownProps> = ({
+  isAuthor,
+  authorNickName,
+  postId,
+}) => {
+  const {
+    handlers: { handleDeletePost },
+  } = useDeletePost()
+
   return (
     <DropDown>
       <DropDown.Trigger>
@@ -13,8 +34,20 @@ export const OptionsDropdown: React.FC = () => {
         </div>
       </DropDown.Trigger>
       <DropDown.Content align="end">
-        <DropDown.Item label="Editar" icon={GoPencil} />
-        <DropDown.Item label="Excluir" icon={GoTrash} />
+        {isAuthor && <DropDown.Item label="Editar" icon={GoPencil} />}
+        {isAuthor && (
+          <DropDown.Item
+            label="Excluir"
+            icon={GoTrash}
+            onClick={() => handleDeletePost({ id: postId })}
+          />
+        )}
+        {!isAuthor && (
+          <DropDown.Item
+            label={`Seguir ${authorNickName}`}
+            icon={GoPersonAdd}
+          />
+        )}
       </DropDown.Content>
     </DropDown>
   )

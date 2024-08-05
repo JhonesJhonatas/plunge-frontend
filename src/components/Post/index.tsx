@@ -1,12 +1,9 @@
 import React, { useCallback } from 'react'
 
+import { tv } from 'tailwind-variants'
 import { useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
-
-import { Avatar } from '@components'
-
-import { Post as PostType } from '@post'
-import { useRatePost } from '@like'
+import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa'
 
 import {
   GoBookmark,
@@ -14,9 +11,16 @@ import {
   GoPaperAirplane,
   GoPencil,
 } from 'react-icons/go'
-import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa'
-import { tv } from 'tailwind-variants'
+
+import { Avatar } from '@components'
+
+import { Post as PostType } from '@post'
+import { useRatePost } from '@like'
+import { useAuth } from '@user'
+
 import { OptionsDropdown } from './components/options-dropdown'
+import { LikesModal } from './components/likes-modal'
+import { PostModal } from './components/post-modal'
 
 const likeButton = tv({
   base: 'flex items-center gap-2 cursor-pointer hover:scale-110 transition-all',
@@ -31,6 +35,7 @@ const likeButton = tv({
 interface PostProps extends PostType {}
 
 export const Post: React.FC<PostProps> = ({ author, ...rest }) => {
+  const { user } = useAuth()
   const navigate = useNavigate()
   const {
     handlers: { handleRatePost },
@@ -44,6 +49,7 @@ export const Post: React.FC<PostProps> = ({ author, ...rest }) => {
     likesCount,
     userAleradyLiked,
     userCanLike,
+    likes,
   } = rest
 
   const hasBenUpdated = createdAt !== updatedAt
@@ -72,7 +78,14 @@ export const Post: React.FC<PostProps> = ({ author, ...rest }) => {
           </div>
         </div>
         <div className="flex flex-col items-end justify-between">
-          <OptionsDropdown />
+          <div className="flex items-center gap-2">
+            <PostModal post={{ author, ...rest }} />
+            <OptionsDropdown
+              isAuthor={user.id === author.id}
+              authorNickName={author.nickName}
+              postId={rest.id}
+            />
+          </div>
           <div className="flex items-center gap-2 text-xs">
             <span className="text-zinc-500">
               {format(new Date(createdAt), 'dd/MM/yyyy')}
@@ -86,15 +99,12 @@ export const Post: React.FC<PostProps> = ({ author, ...rest }) => {
         </div>
       </div>
       <div className="flex flex-col gap-4 border-b-2 border-zinc-900 pb-4">
-        <span>{content}</span>
+        <span className="break-words">{content}</span>
         {mediaUrl ? (
           <img src={mediaUrl} alt="" className="max-h-52 rounded" />
         ) : null}
       </div>
-      <div className="p-2 flex gap-1 text-zinc-600 hover:text-zinc-500 cursor-pointer transition-all">
-        <span className="font-bold">{likesCount}</span>
-        <span>Curtidas</span>
-      </div>
+      <LikesModal likesCount={likesCount} likes={likes} />
       <div className="w-full rounded-full border-2 border-slate-800 flex items-center justify-between gap-2 pr-6">
         <div
           onClick={hatePost}

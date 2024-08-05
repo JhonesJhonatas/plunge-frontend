@@ -5,7 +5,7 @@ export type Author = {
   avatarUrl?: string
 }
 
-type Like = {
+export type PostLike = {
   id: string
   createdAt: Date
   user: {
@@ -21,7 +21,7 @@ export type Post = {
   content: string
   mediaUrl?: string
   author: Author
-  likes: Like[]
+  likes: PostLike[]
   likesCount: number
   userCanLike: boolean
   userAleradyLiked: boolean

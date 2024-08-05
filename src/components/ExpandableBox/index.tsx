@@ -16,13 +16,15 @@ const expandableBox = tv({
 interface ExpandableBoxProps {
   title: string
   children: ReactNode
+  defaultOpen?: boolean
 }
 
 export const ExpandableBox: React.FC<ExpandableBoxProps> = ({
   title,
   children,
+  defaultOpen = false,
 }) => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(defaultOpen)
 
   const Icon = useMemo(() => {
     return isOpen ? GoChevronUp : GoChevronDown

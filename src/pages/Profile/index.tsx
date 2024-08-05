@@ -49,7 +49,7 @@ export const Profile: React.FC = () => {
       </div>
       <div className="w-6/12 flex flex-col gap-4">
         <CreatePost />
-        <div className="flex flex-col gap-4 h-[calc(100vh-15rem)] overflow-auto no-scrollbar">
+        <div className="flex flex-col gap-4 h-[calc(100vh-15rem)] overflow-auto pr-1">
           {profileData?.posts?.map((post) => {
             return <Post key={post.id} {...post} />
           })}
