@@ -9,7 +9,12 @@ export const Profile: React.FC = () => {
   const {
     profileData,
     isProfileOwner,
-    handlers: { handleCreatePost, handleDeletePost, handleRatePost },
+    handlers: {
+      handleCreatePost,
+      handleDeletePost,
+      handleRatePost,
+      handleRequestFollow,
+    },
   } = useProfileContent()
 
   return (
@@ -27,7 +32,11 @@ export const Profile: React.FC = () => {
               </span>
               {!isProfileOwner ? (
                 <Button width="fit">
-                  <GoPersonAdd />
+                  <GoPersonAdd
+                    onClick={() =>
+                      handleRequestFollow({ followingId: profileData.user.id })
+                    }
+                  />
                 </Button>
               ) : null}
             </div>

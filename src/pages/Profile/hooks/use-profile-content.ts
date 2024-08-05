@@ -15,10 +15,15 @@ import {
 import { ratePost, RatePostProps } from '@like'
 
 import { useToast } from '@components'
+import { requestFollow } from '@/modules/follower'
 
 type Properties = {
   loading: boolean
   profileData: GetProfileDataResponse
+}
+
+interface HandleRequestFollowProps {
+  followingId: string
 }
 
 export function useProfileContent() {
@@ -197,6 +202,20 @@ export function useProfileContent() {
     ],
   )
 
+  const handleRequestFollow = useCallback(
+    async ({ followingId }: HandleRequestFollowProps) => {
+      try {
+        await requestFollow({ followingId })
+      } catch (err) {
+        addToast({
+          title: 'Erro ao seguir usuário',
+          description: 'Ocorreu um erro ao seguir o usuário, tente novamente',
+        })
+      }
+    },
+    [addToast],
+  )
+
   useEffect(() => {
     if (nickName) {
       handleGetProfileData(nickName)
@@ -215,6 +234,7 @@ export function useProfileContent() {
       handleCreatePost,
       handleDeletePost,
       handleRatePost,
+      handleRequestFollow,
     },
   }
 }
