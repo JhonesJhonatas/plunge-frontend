@@ -5,26 +5,9 @@ export interface GetProfileDataProps {
   nickName: string
 }
 
-type Like = {
-  id: string
-  userId: string
-  postId: string
-  createdAt: Date
-  user: {
-    id: string
-    name: string
-    nickName: string
-    avatarUrl: string
-  }
-}
-
-interface PostSchema extends Post {
-  Like: Like[]
-}
-
 export interface GetProfileDataResponse {
   user: Omit<User, 'password'>
-  posts: PostSchema[]
+  posts: Post[]
   follows: {
     acceptedFollowers: []
     acceptedFollowing: []

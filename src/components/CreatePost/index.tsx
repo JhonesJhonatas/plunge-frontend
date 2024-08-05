@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { GoFileMedia } from 'react-icons/go'
 
 import { Avatar, Button, Form } from '@components'
-import { useCreatePost } from '@post'
+import { CreatePostProps as CreatePostParams } from '@post'
 import { useAuth } from '@/modules/user'
 
 const formSchema = z.object({
@@ -15,14 +15,18 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>
 
-export const CreatePost: React.FC = () => {
+interface CreatePostProps {
+  loading?: boolean
+  handleCreatePost: (params: CreatePostParams) => void
+}
+
+export const CreatePost: React.FC<CreatePostProps> = ({
+  handleCreatePost,
+  loading,
+}) => {
   const {
     user: { avatarUrl },
   } = useAuth()
-  const {
-    loading,
-    handlers: { handleCreatePost },
-  } = useCreatePost()
 
   const handleSubmit = useCallback(
     ({ content }: FormSchema) => {

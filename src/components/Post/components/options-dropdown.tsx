@@ -7,7 +7,7 @@ import {
   GoTrash,
 } from 'react-icons/go'
 
-import { useDeletePost } from '@post'
+import { DeletePostProps } from '@post'
 
 import { DropDown } from '@components'
 
@@ -15,17 +15,15 @@ interface OptionsDropdownProps {
   isAuthor: boolean
   authorNickName: string
   postId: string
+  handleDeletePost: (params: DeletePostProps) => void
 }
 
 export const OptionsDropdown: React.FC<OptionsDropdownProps> = ({
   isAuthor,
   authorNickName,
   postId,
+  handleDeletePost,
 }) => {
-  const {
-    handlers: { handleDeletePost },
-  } = useDeletePost()
-
   return (
     <DropDown>
       <DropDown.Trigger>

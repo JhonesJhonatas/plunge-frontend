@@ -14,8 +14,8 @@ import {
 
 import { Avatar } from '@components'
 
-import { Post as PostType } from '@post'
-import { useRatePost } from '@like'
+import { DeletePostProps, Post as PostType } from '@post'
+import { RatePostProps } from '@like'
 import { useAuth } from '@user'
 
 import { OptionsDropdown } from './components/options-dropdown'
@@ -32,14 +32,20 @@ const likeButton = tv({
   },
 })
 
-interface PostProps extends PostType {}
+interface PostProps {
+  post: PostType
+  handlers: {
+    handleRatePost: (params: RatePostProps) => void
+    handleDeletePost: (params: DeletePostProps) => void
+  }
+}
 
-export const Post: React.FC<PostProps> = ({ author, ...rest }) => {
+export const Post: React.FC<PostProps> = ({
+  post: { author, ...post },
+  handlers: { handleDeletePost, handleRatePost },
+}) => {
   const { user } = useAuth()
   const navigate = useNavigate()
-  const {
-    handlers: { handleRatePost },
-  } = useRatePost()
 
   const {
     content,
@@ -50,7 +56,7 @@ export const Post: React.FC<PostProps> = ({ author, ...rest }) => {
     userAleradyLiked,
     userCanLike,
     likes,
-  } = rest
+  } = post
 
   const hasBenUpdated = createdAt !== updatedAt
 
@@ -58,9 +64,9 @@ export const Post: React.FC<PostProps> = ({ author, ...rest }) => {
 
   const hatePost = useCallback(() => {
     if (userCanLike) {
-      handleRatePost({ postId: rest.id, like: !userAleradyLiked })
+      handleRatePost({ postId: post.id, like: !userAleradyLiked })
     }
-  }, [handleRatePost, rest.id, userAleradyLiked, userCanLike])
+  }, [handleRatePost, post.id, userAleradyLiked, userCanLike])
 
   return (
     <div className="bg-gradient-to-br from-slate-900 to-slate-950 rounded p-2 border-2 border-slate-900 flex flex-col gap-2">
@@ -79,11 +85,12 @@ export const Post: React.FC<PostProps> = ({ author, ...rest }) => {
         </div>
         <div className="flex flex-col items-end justify-between">
           <div className="flex items-center gap-2">
-            <PostModal post={{ author, ...rest }} />
+            <PostModal post={{ author, ...post }} />
             <OptionsDropdown
+              handleDeletePost={handleDeletePost}
               isAuthor={user.id === author.id}
               authorNickName={author.nickName}
-              postId={rest.id}
+              postId={post.id}
             />
           </div>
           <div className="flex items-center gap-2 text-xs">
