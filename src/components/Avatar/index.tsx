@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 
 import { tv, VariantProps } from 'tailwind-variants'
 
@@ -13,6 +13,10 @@ const avatar = tv({
       lg: 'w-16 h-16',
       xlg: 'w-32 h-32',
     },
+    haveAction: {
+      true: 'cursor-pointer hover:scale-110 transition-all',
+      false: '',
+    },
   },
   defaultVariants: {
     size: 'md',
@@ -21,17 +25,17 @@ const avatar = tv({
 
 type AvatarStyle = VariantProps<typeof avatar>
 
-interface AvatarProps extends AvatarStyle {
+interface AvatarProps extends AvatarStyle, HTMLAttributes<HTMLDivElement> {
   avatarUrl?: string
 }
 
-export const Avatar: React.FC<AvatarProps> = ({ size, avatarUrl }) => {
+export const Avatar: React.FC<AvatarProps> = ({ size, avatarUrl, ...rest }) => {
   return (
-    <div>
+    <div {...rest}>
       <img
         src={avatarUrl || avatarPlaceholder}
         alt="Avatar"
-        className={avatar({ size })}
+        className={avatar({ size, haveAction: !!rest.onClick })}
       />
     </div>
   )

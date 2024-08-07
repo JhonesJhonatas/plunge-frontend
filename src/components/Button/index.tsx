@@ -5,11 +5,11 @@ const button = tv({
   base: 'p-2 rounded bg-blue-600 transition-all',
   variants: {
     width: {
-      xs: 'w-2/12',
-      sm: 'w-4/12',
+      xs: 'w-fit text-xs',
+      sm: 'w-fit text-sm',
       md: 'w-6/12',
       lg: 'w-8/12',
-      fit: 'w-fit',
+      fit: 'w-fit h-fit',
       block: 'w-full',
     },
     typeColor: {

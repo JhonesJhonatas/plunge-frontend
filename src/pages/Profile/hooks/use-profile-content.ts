@@ -13,9 +13,9 @@ import {
   Post,
 } from '@post'
 import { ratePost, RatePostProps } from '@like'
+import { editFollow, requestFollow } from '@follower'
 
 import { useToast } from '@components'
-import { requestFollow } from '@/modules/follower'
 
 type Properties = {
   loading: boolean
@@ -24,6 +24,10 @@ type Properties = {
 
 interface HandleRequestFollowProps {
   followingId: string
+}
+
+interface HandleAcceptFollowProps {
+  id: string
 }
 
 export function useProfileContent() {
@@ -216,6 +220,25 @@ export function useProfileContent() {
     [addToast],
   )
 
+  const handleAcceptFollow = useCallback(
+    async ({ id }: HandleAcceptFollowProps) => {
+      try {
+        await editFollow({ id, status: 'ACCEPTED' })
+
+        addToast({
+          title: 'Seguidor aceito',
+          description: 'Você aceitou um novo seguidor',
+        })
+      } catch (err) {
+        addToast({
+          title: 'Erro ao aceitar solicitação de seguidor',
+          description: 'Tente novamente mais tarde',
+        })
+      }
+    },
+    [addToast],
+  )
+
   useEffect(() => {
     if (nickName) {
       handleGetProfileData(nickName)
@@ -235,6 +258,7 @@ export function useProfileContent() {
       handleDeletePost,
       handleRatePost,
       handleRequestFollow,
+      handleAcceptFollow,
     },
   }
 }
