@@ -1,6 +1,8 @@
 import { request } from '@core'
 
 import {
+  DeleteFollowerProps,
+  DeleteFollowerResponse,
   EditFollowerProps,
   EditFollowerResponse,
   RequestFollowProps,
@@ -20,5 +22,12 @@ export async function editFollow(params: EditFollowerProps) {
     url: '/follower',
     method: 'put',
     body: params,
+  })
+}
+
+export async function deleteFollow({ id }: DeleteFollowerProps) {
+  return request<DeleteFollowerResponse>({
+    url: `/follower/${id}`,
+    method: 'delete',
   })
 }

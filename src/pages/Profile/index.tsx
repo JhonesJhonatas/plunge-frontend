@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+
+import { useNavigate } from 'react-router-dom'
+import { GoPersonAdd } from 'react-icons/go'
 
 import { Avatar, Button, CreatePost, ExpandableBox, Post } from '@components'
 
-import { GoPersonAdd } from 'react-icons/go'
 import { useProfileContent } from './hooks/use-profile-content'
-import { useNavigate } from 'react-router-dom'
+import { deleteFollow } from '@follower'
 
 export const Profile: React.FC = () => {
   const navigate = useNavigate()
+
+  const handleDeleteFollow = useCallback(async (id: string) => {
+    await deleteFollow({ id })
+  }, [])
 
   const {
     profileData,
@@ -120,7 +126,12 @@ export const Profile: React.FC = () => {
                       </div>
                     </div>
 
-                    <Button width="xs">Cancelar Solicitação</Button>
+                    <Button
+                      width="xs"
+                      onClick={() => handleDeleteFollow(follow.id)}
+                    >
+                      Cancelar Solicitação
+                    </Button>
                   </div>
                 )
               })}
